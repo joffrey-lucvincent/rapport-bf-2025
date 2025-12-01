@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport Black Friday 2025 - Luc Vincent Coiffure</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D3748;
+            --secondary: #4A5568;
+            --accent: #3182CE;
+            --success: #38A169;
+            --warning: #D69E2E;
+            --danger: #E53E3E;
+            --light: #F7FAFC;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-subtitle {
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--light);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: var(--accent);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem 2rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .metric-card {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-change {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .metric-change.positive {
+            background: #C6F6D5;
+            color: var(--success);
+        }
+
+        .metric-change.negative {
+            background: #FED7D7;
+            color: var(--danger);
+        }
+
+        .chart-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        thead {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--light);
+        }
+
+        tbody tr:hover {
+            background: #EDF2F7;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #C6F6D5;
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: #FEEBC8;
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: #FED7D7;
+            color: var(--danger);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .highlight-box h2 {
+            margin-bottom: 1rem;
+            font-size: 1.75rem;
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .highlight-stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-card {
+            background: var(--white);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .insight-card h3 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .recommendation-list {
+            list-style: none;
+        }
+
+        .recommendation-list li {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--light);
+            border-radius: 8px;
+            padding-left: 2.5rem;
+            position: relative;
+        }
+
+        .recommendation-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 1rem;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .phase-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .phase-1 { background: #4299E1; }
+        .phase-2 { background: #48BB78; }
+        .phase-3 { background: #ED8936; }
+
+        @media (max-width: 768px) {
+            .header-content, .container {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .metric-value {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer {
+            background: var(--white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>📊 Rapport Black Friday - Novembre 2025</h1>
+            <p class="header-subtitle">Luc Vincent Coiffure | Stratégie 3 Phases : Collecte VIP → Activation VIP → Black Friday Grand Public</p>
+            
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="showSection('vue-ensemble')">📈 Vue d'Ensemble</button>
+                <button class="nav-tab" onclick="showSection('phase1')">🎯 Phase 1: Collecte VIP</button>
+                <button class="nav-tab" onclick="showSection('phase2')">🚀 Phase 2: Activation VIP</button>
+                <button class="nav-tab" onclick="showSection('phase3')">🔥 Phase 3: Black Friday</button>
+                <button class="nav-tab" onclick="showSection('gagne-commande')">🎁 Gagne Ta Commande</button>
+                <button class="nav-tab" onclick="showSection('shopify')">🛍️ Shopify 2023 vs 2025</button>
+                <button class="nav-tab" onclick="showSection('top-performers')">🏆 Top Performers</button>
+                <button class="nav-tab" onclick="showSection('insights')">💡 Insights</button>
+                <button class="nav-tab" onclick="showSection('recommandations')">🎯 Recommandations</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- VUE D'ENSEMBLE -->
+        <section id="vue-ensemble" class="section active">
+            <div class="highlight-box">
+                <h2>🎉 Le Meilleur Black Friday de l'Histoire</h2>
+                <div class="highlight-grid">
+                    <div class="highlight-stat">
+                        <div class="highlight-stat-value">93 159 CAD</div>
+                        <div>Investissement Meta</div>
+                    </div>
+                    <div class="highlight-stat">
+                        <div class="highlight-stat-value">345 730 CAD</div>
+                        <div>CA Meta Ads</div>
+                    </div>
+                    <div class="highlight-stat">
+                        <div class="highlight-stat-value">3.71</div>
+                        <div>ROAS Global Meta</div>
+                    </div>
+                    <div class="highlight-stat">
+                        <div class="highlight-stat-value">4 041</div>
+                        <div>Achats Totaux</div>
+                    </div>
+                    <div class="highlight-stat">
+                        <div class="highlight-stat-value">103 585 CAD</div>
+                        <div>CA Google Brand</div>
+                    </div>
+                    <div class="highlight-stat">
+                        <div class="highlight-stat-value">13.73</div>
+                        <div>ROAS Google</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card metric-card">
+                    <div class="metric-label">CPA Moyen</div>
+                    <div class="metric-value">23.05 CAD</div>
+                    <span class="metric-change positive">Très performant</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Conversions Google</div>
+                    <div class="metric-value">1 295</div>
+                    <span class="metric-change positive">CPA: 5.82 CAD</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Québec (FR+EN)</div>
+                    <div class="metric-value">ROAS 4.09</div>
+                    <span class="metric-change positive">339 595 CAD CA</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Rest of Canada</div>
+                    <div class="metric-value">ROAS 0.60</div>
+                    <span class="metric-change warning">En développement</span>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Performance par Phase</h3>
+                <canvas id="phaseComparisonChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Répartition Investissement & CA</h3>
+                <canvas id="investmentCAChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Évolution ROAS par Phase</h3>
+                <canvas id="roasEvolutionChart"></canvas>
+            </div>
+        </section>
+
+        <!-- PHASE 1 -->
+        <section id="phase1" class="section">
+            <div class="highlight-box">
+                <h2><span class="phase-indicator phase-1"></span>Phase 1: Collecte VIP (1-6 novembre)</h2>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">Constituer une base de leads VIP qualifiés pour l'offre exclusive</p>
+            </div>
+
+            <div class="grid">
+                <div class="card metric-card">
+                    <div class="metric-label">Leads VIP Collectés</div>
+                    <div class="metric-value">2 594</div>
+                    <span class="metric-change positive">Base qualifiée</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Coût par Lead</div>
+                    <div class="metric-value">2.27 CAD</div>
+                    <span class="metric-change positive">⭐ Excellent</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Budget Phase 1</div>
+                    <div class="metric-value">5 876 CAD</div>
+                    <span class="metric-change positive">Très efficace</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Achats Directs</div>
+                    <div class="metric-value">21</div>
+                    <span class="metric-change positive">2 096 CAD CA</span>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Performance Campagnes VIP</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campagne</th>
+                            <th>Budget</th>
+                            <th>Leads VIP</th>
+                            <th>Coût/Lead</th>
+                            <th>CA</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Opt-in VIP BF</strong></td>
+                            <td>5 726 CAD</td>
+                            <td>2 586</td>
+                            <td>2.21 CAD</td>
+                            <td>2 096 CAD</td>
+                            <td><span class="badge badge-success">1.39</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Video Lead VIP</strong></td>
+                            <td>150 CAD</td>
+                            <td>8</td>
+                            <td>18.32 CAD</td>
+                            <td>0 CAD</td>
+                            <td><span class="badge badge-warning">0.00</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎯 Analyse Phase 1</h3>
+                <p>Collecte VIP extrêmement efficace avec un coût par lead de 2.27 CAD. La campagne Opt-in génère déjà 21 achats directs (ROAS 1.39), démontrant que même en phase de collecte, les prospects sont ultra-qualifiés. Base massive de 2 594 leads VIP prête pour l'activation.</p>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Google Brand Phase 1 (1-6 nov)</h3>
+                <div class="grid">
+                    <div class="card metric-card">
+                        <div class="metric-label">Conversions</div>
+                        <div class="metric-value">181</div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">CA</div>
+                        <div class="metric-value">12 773 CAD</div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">ROAS</div>
+                        <div class="metric-value">6.57</div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">CTR Moyen</div>
+                        <div class="metric-value">38.2%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 2 -->
+        <section id="phase2" class="section">
+            <div class="highlight-box">
+                <h2><span class="phase-indicator phase-2"></span>Phase 2: Activation VIP + Warmup (7-17 novembre)</h2>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">Activer les 2 594 inscrits VIP + préparer l'audience pour le BF grand public</p>
+            </div>
+
+            <div class="grid">
+                <div class="card metric-card">
+                    <div class="metric-label">ROAS Rappel VIP</div>
+                    <div class="metric-value" style="color: #E53E3E;">28.86 🔥</div>
+                    <span class="metric-change positive">ROI 2,786%</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Achats VIP</div>
+                    <div class="metric-value">270</div>
+                    <span class="metric-change positive">967 CAD investis</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">CA VIP</div>
+                    <div class="metric-value">27 902 CAD</div>
+                    <span class="metric-change positive">CPA: 3.58 CAD</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Taux Conversion VIP</div>
+                    <div class="metric-value">12.5%</div>
+                    <span class="metric-change positive">325/2594 inscrits</span>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Performance Québec Phase 2</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campagne</th>
+                            <th>Budget</th>
+                            <th>Achats</th>
+                            <th>CA</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #FFF5F5;">
+                            <td><strong>🔥 Rappel VIP</strong></td>
+                            <td>967 CAD</td>
+                            <td>270</td>
+                            <td>27 902 CAD</td>
+                            <td><span class="badge" style="background: #FED7D7; color: #C53030; font-size: 1rem;">28.86</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Video Achat Pré-BF</strong></td>
+                            <td>2 919 CAD</td>
+                            <td>214</td>
+                            <td>13 338 CAD</td>
+                            <td><span class="badge badge-success">4.57</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Video ATC Pré-BF</strong></td>
+                            <td>2 416 CAD</td>
+                            <td>47</td>
+                            <td>4 437 CAD</td>
+                            <td><span class="badge badge-warning">1.84</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Video Views BF</strong></td>
+                            <td>883 CAD</td>
+                            <td>0</td>
+                            <td>0 CAD</td>
+                            <td><span class="badge badge-danger">0.00</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Comparaison Performance Phase 2</h3>
+                <canvas id="phase2Chart"></canvas>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎯 Pourquoi la Stratégie VIP Fonctionne</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.75rem;">✓ <strong>Collecte à froid avec offre exclusive</strong> crée anticipation</li>
+                    <li style="margin-bottom: 0.75rem;">✓ <strong>Segmentation ultra-qualifiée</strong> (inscrits volontaires)</li>
+                    <li style="margin-bottom: 0.75rem;">✓ <strong>Activation email + Meta</strong> = synergie parfaite</li>
+                    <li style="margin-bottom: 0.75rem;">✓ <strong>Sentiment d'exclusivité</strong> = engagement maximal</li>
+                    <li style="margin-bottom: 0.75rem;">✓ <strong>Conversion continue</strong> même 2 semaines après inscription</li>
+                </ul>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Google Brand Phase 2 (7-17 nov)</h3>
+                <div class="grid">
+                    <div class="card metric-card">
+                        <div class="metric-label">Conversions</div>
+                        <div class="metric-value">327</div>
+                        <span class="metric-change positive">+81% vs Phase 1</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">ROAS</div>
+                        <div class="metric-value">9.57</div>
+                        <span class="metric-change positive">+46% vs Phase 1</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">CTR Moyen</div>
+                        <div class="metric-value">38.8%</div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">Pic 7 nov</div>
+                        <div class="metric-value">47.8%</div>
+                        <span class="metric-change positive">Lancement VIP</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 3 -->
+        <section id="phase3" class="section">
+            <div class="highlight-box">
+                <h2><span class="phase-indicator phase-3"></span>Phase 3: Black Friday Grand Public (18-30 novembre)</h2>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">Maximiser le volume avec offres grand public + dernière activation VIP</p>
+            </div>
+
+            <div class="grid">
+                <div class="card metric-card">
+                    <div class="metric-label">Achats Phase 3</div>
+                    <div class="metric-value">2 760</div>
+                    <span class="metric-change positive">Volume massif</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">CA Phase 3</div>
+                    <div class="metric-value">248 241 CAD</div>
+                    <span class="metric-change positive">72% du CA total</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">ROAS Phase 3</div>
+                    <div class="metric-value">3.62</div>
+                    <span class="metric-change positive">68 621 CAD invest</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">CPA Phase 3</div>
+                    <div class="metric-value">24.87 CAD</div>
+                    <span class="metric-change positive">Scaling efficace</span>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Top Campagnes BF Québec</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campagne</th>
+                            <th>Budget</th>
+                            <th>Achats</th>
+                            <th>CA</th>
+                            <th>ROAS</th>
+                            <th>CPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>BF QC FR</strong></td>
+                            <td>19 121 CAD</td>
+                            <td>893</td>
+                            <td>85 106 CAD</td>
+                            <td><span class="badge badge-success">4.45</span></td>
+                            <td>21.41 CAD</td>
+                        </tr>
+                        <tr style="background: #F0FFF4;">
+                            <td><strong>🌟 BF QC EN</strong></td>
+                            <td>12 055 CAD</td>
+                            <td>652</td>
+                            <td>65 175 CAD</td>
+                            <td><span class="badge badge-success">5.41</span></td>
+                            <td>18.49 CAD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BF Catalogue</strong></td>
+                            <td>7 297 CAD</td>
+                            <td>390</td>
+                            <td>35 632 CAD</td>
+                            <td><span class="badge badge-success">4.88</span></td>
+                            <td>18.71 CAD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BF Stack Videos</strong></td>
+                            <td>3 906 CAD</td>
+                            <td>203</td>
+                            <td>16 767 CAD</td>
+                            <td><span class="badge badge-success">4.29</span></td>
+                            <td>19.24 CAD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Performance par Marché</h3>
+                <canvas id="marketComparisonChart"></canvas>
+            </div>
+
+            <div class="insight-card">
+                <h3>📊 Anglophones Québec vs ROC : Deux Marchés Distincts</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+                    <div>
+                        <h4 style="color: var(--success); margin-bottom: 0.5rem;">QC EN (Anglophones Québec) 🌟</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✓ ROAS: 5.41</li>
+                            <li>✓ CPA: 18.49 CAD</li>
+                            <li>✓ 692 achats</li>
+                            <li>✓ Marché mature et performant</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--warning); margin-bottom: 0.5rem;">ROC (Rest of Canada)</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>• ROAS: 1.03</li>
+                            <li>• CPA: 93.23 CAD</li>
+                            <li>• 82 achats</li>
+                            <li>• Marché émergent à développer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Google Brand Phase 3 (18-30 nov) - Performance Exceptionnelle</h3>
+                <div class="grid">
+                    <div class="card metric-card">
+                        <div class="metric-label">Conversions</div>
+                        <div class="metric-value">787</div>
+                        <span class="metric-change positive">+141% vs Phase 2</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">ROAS</div>
+                        <div class="metric-value" style="color: #E53E3E;">23.73 ⭐</div>
+                        <span class="metric-change positive">62 364 CAD CA</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">CPA</div>
+                        <div class="metric-value">3.34 CAD</div>
+                        <span class="metric-change positive">Record absolu</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">CTR Moyen</div>
+                        <div class="metric-value">50.9%</div>
+                        <span class="metric-change positive">+31% vs Phase 1</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h4 style="margin-bottom: 1rem;">Pics de Performance Google Brand</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Événement</th>
+                                <th>Conversions</th>
+                                <th>CTR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>18 novembre</td>
+                                <td><strong>Début BF</strong></td>
+                                <td>137</td>
+                                <td><span class="badge badge-success">53.5%</span></td>
+                            </tr>
+                            <tr style="background: #FFF5F5;">
+                                <td>25 novembre</td>
+                                <td><strong>🔥 Pic de Performance</strong></td>
+                                <td>126</td>
+                                <td><span class="badge" style="background: #FED7D7; color: #C53030;">77.6%</span></td>
+                            </tr>
+                            <tr>
+                                <td>28 novembre</td>
+                                <td><strong>Gagne ta commande</strong></td>
+                                <td>91</td>
+                                <td><span class="badge badge-success">61.7%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Évolution CTR Google Brand par Phase</h3>
+                <canvas id="googleCTRChart"></canvas>
+            </div>
+        </section>
+
+        <!-- GAGNE TA COMMANDE -->
+        <section id="gagne-commande" class="section">
+            <div class="highlight-box">
+                <h2>🎁 Analyse Spéciale : Campagne "Gagne Ta Commande"</h2>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">Concours avec remboursement possible - 28 novembre (24h)</p>
+            </div>
+
+            <div class="grid">
+                <div class="card metric-card">
+                    <div class="metric-label">ROAS</div>
+                    <div class="metric-value">4.21</div>
+                    <span class="metric-change positive">En 24h</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">CA Généré</div>
+                    <div class="metric-value">15 148 CAD</div>
+                    <span class="metric-change positive">155 achats</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">CTR</div>
+                    <div class="metric-value">4.37%</div>
+                    <span class="metric-change positive">vs 3% moyen</span>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-label">Taux Conversion</div>
+                    <div class="metric-value">19.6%</div>
+                    <span class="metric-change positive">Exceptionnel</span>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Funnel de Conversion</h3>
+                <canvas id="funnelChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Métriques d'Engagement</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Métrique</th>
+                            <th>Valeur</th>
+                            <th>Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Impressions</strong></td>
+                            <td>83 738</td>
+                            <td><span class="badge badge-success">Portée massive</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clics</strong></td>
+                            <td>3 662</td>
+                            <td><span class="badge badge-success">Engagement fort</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CPC</strong></td>
+                            <td>0.98 CAD</td>
+                            <td><span class="badge badge-success">Très efficace</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Landing Page Views</strong></td>
+                            <td>791</td>
+                            <td><span class="badge badge-success">21.6% des clics</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Add to Cart</strong></td>
+                            <td>667</td>
+                            <td><span class="badge badge-success">84.3% des LPV</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Initiate Checkout</strong></td>
+                            <td>294</td>
+                            <td><span class="badge badge-success">44.1% des ATC</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Purchases</strong></td>
+                            <td>155</td>
+                            <td><span class="badge badge-success">52.7% des IC</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎯 Pourquoi la Mécanique "Gagne Ta Commande" Fonctionne</h3>
+                <div style="margin-top: 1rem;">
+                    <h4 style="color: var(--success); margin-bottom: 1rem;">Points Forts</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>ROAS de 4.21 en 24h</strong> démontre l'efficacité du concept</li>
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>CTR de 4.37%</strong> (vs 3% moyen) = engagement fort</li>
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>Taux de conversion de 19.6%</strong> exceptionnel</li>
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>Effet de halo Google Brand massif</strong> (CTR +62%)</li>
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>Urgence de 24h</strong> crée FOMO efficace</li>
+                    </ul>
+
+                    <h4 style="color: var(--accent); margin: 1.5rem 0 1rem;">Insights Clés</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.75rem;">💡 La mécanique de concours génère plus d'engagement que les remises classiques</li>
+                        <li style="margin-bottom: 0.75rem;">💡 Le potentiel de "gagner" sa commande incite à l'achat immédiat</li>
+                        <li style="margin-bottom: 0.75rem;">💡 Le CPA de 23.21 CAD reste compétitif malgré la mécanique premium</li>
+                        <li style="margin-bottom: 0.75rem;">💡 Google Brand capte massivement le trafic généré (+142% conversions)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Impact Google Brand (28 novembre)</h3>
+                <div class="grid">
+                    <div class="card metric-card">
+                        <div class="metric-label">Conversions Google</div>
+                        <div class="metric-value">91</div>
+                        <span class="metric-change positive">+142% vs moyenne</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">CTR Google</div>
+                        <div class="metric-value">61.7%</div>
+                        <span class="metric-change positive">vs 38% moyen mois</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">ROAS Google</div>
+                        <div class="metric-value">19.56</div>
+                        <span class="metric-change positive">Performance top</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SHOPIFY ANALYSIS -->
+        <section id="shopify" class="section">
+            <div class="highlight-box">
+                <h2>🛍️ Performance Shopify - Novembre 2023 vs 2025</h2>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">Croissance explosive du e-commerce en 2 ans</p>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">📈 Comparaison Globale 2023 vs 2025</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Métrique</th>
+                            <th>Nov 2023</th>
+                            <th>Nov 2025</th>
+                            <th>Évolution</th>
+                            <th>Croissance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ventes Brutes</strong></td>
+                            <td>405 758 CAD</td>
+                            <td>739 507 CAD</td>
+                            <td>+333 749 CAD</td>
+                            <td><span class="badge badge-success">+82.2%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ventes Nettes</strong></td>
+                            <td>365 663 CAD</td>
+                            <td>466 393 CAD</td>
+                            <td>+100 730 CAD</td>
+                            <td><span class="badge badge-success">+27.5%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Commandes</strong></td>
+                            <td>3 478</td>
+                            <td>5 789</td>
+                            <td>+2 311</td>
+                            <td><span class="badge badge-success">+66.5%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Panier Moyen</strong></td>
+                            <td>106.05 CAD</td>
+                            <td>80.83 CAD</td>
+                            <td>-25.22 CAD</td>
+                            <td><span class="badge badge-warning">-23.8%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sessions</strong></td>
+                            <td>94 822</td>
+                            <td>73 065</td>
+                            <td>-21 757</td>
+                            <td><span class="badge badge-warning">-22.9%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taux Conversion</strong></td>
+                            <td>3.50%</td>
+                            <td>5.47%</td>
+                            <td>+1.97 pts</td>
+                            <td><span class="badge badge-success">+56.3%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nouveaux Clients</strong></td>
+                            <td>1 229</td>
+                            <td>2 703</td>
+                            <td>+1 474</td>
+                            <td><span class="badge badge-success">+120%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Réductions</strong></td>
+                            <td>-34 685 CAD</td>
+                            <td>-270 891 CAD</td>
+                            <td>-236 206 CAD</td>
+                            <td><span class="badge badge-warning">+681%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color: var(--success); margin-bottom: 1rem;">🎯 Gains Majeurs 2025</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>+333K CAD</strong> ventes brutes (+82%)</li>
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>+2,311 commandes</strong> (+66%)</li>
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>Taux conversion +56%</strong> (3.5% → 5.47%)</li>
+                        <li style="margin-bottom: 0.75rem;">✓ <strong>+1,474 nouveaux clients</strong> (+120%)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">📊 Points d'Attention</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.75rem;">• <strong>Panier moyen -24%</strong> (106 → 81 CAD)</li>
+                        <li style="margin-bottom: 0.75rem;">• <strong>Sessions -23%</strong> (trafic plus qualifié)</li>
+                        <li style="margin-bottom: 0.75rem;">• <strong>Réductions +681%</strong> (stratégie aggressive)</li>
+                        <li style="margin-bottom: 0.75rem;">• Efficacité conversion compense baisse trafic</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Évolution Ventes Brutes vs Commandes</h3>
+                <canvas id="shopifyComparisonChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">💰 Détail Performance 2025</h3>
+                <div class="grid">
+                    <div class="card metric-card">
+                        <div class="metric-label">Ventes Totales</div>
+                        <div class="metric-value">551 613 CAD</div>
+                        <span class="metric-change positive">+27% vs 2023</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">Commandes Traitées</div>
+                        <div class="metric-value">4 825</div>
+                        <span class="metric-change positive">+42% vs 2023</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">Taux Clients Récurrents</div>
+                        <div class="metric-value">52.84%</div>
+                        <span class="metric-change negative">vs 63.83% en 2023</span>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">Frais Expédition</div>
+                        <div class="metric-value">13 777 CAD</div>
+                        <span class="metric-change positive">+3% vs 2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎯 Analyse Stratégique : Efficacité vs Volume</h3>
+                <div style="margin-top: 1rem;">
+                    <p style="margin-bottom: 1rem;"><strong>2023 : Stratégie Premium</strong></p>
+                    <ul style="margin-bottom: 1.5rem;">
+                        <li>Panier moyen élevé (106 CAD)</li>
+                        <li>Trafic important (95K sessions)</li>
+                        <li>Conversion modérée (3.5%)</li>
+                        <li>Remises limitées (-35K CAD)</li>
+                        <li>63% clients récurrents</li>
+                    </ul>
+
+                    <p style="margin-bottom: 1rem;"><strong>2025 : Stratégie Volume + Acquisition</strong></p>
+                    <ul style="margin-bottom: 1.5rem;">
+                        <li>Panier moyen optimisé (81 CAD) = accessibilité</li>
+                        <li>Trafic ultra-qualifié (73K sessions, -23%)</li>
+                        <li>Conversion excellente (5.47%, +56%)</li>
+                        <li>Remises agressives (-271K CAD) = acquisition</li>
+                        <li>53% clients récurrents (focus nouveaux clients)</li>
+                    </ul>
+
+                    <p style="padding: 1rem; background: var(--light); border-radius: 8px; margin-top: 1rem;">
+                        <strong>Conclusion:</strong> Pivot stratégique réussi de "premium avec gros paniers" vers "volume avec acquisition massive". 
+                        Le doublement des nouveaux clients (+120%) et l'amélioration du taux de conversion (+56%) démontrent l'efficacité 
+                        de la stratégie VIP et des offres agressives. Moins de trafic mais infiniment mieux converti.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">📍 Canaux de Vente 2025</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Canal</th>
+                            <th>Ventes</th>
+                            <th>% du Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Online Store</strong></td>
+                            <td>539 500 CAD</td>
+                            <td><span class="badge badge-success">97.8%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shop</strong></td>
+                            <td>7 500 CAD</td>
+                            <td><span class="badge">1.4%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Draft Orders</strong></td>
+                            <td>4 600 CAD</td>
+                            <td><span class="badge">0.8%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="insight-card">
+                <h3>💡 Impact Stratégie VIP sur Shopify</h3>
+                <p style="margin-bottom: 1rem;">La stratégie VIP en 2 temps a transformé la performance e-commerce :</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.75rem;">🎯 <strong>Taux de conversion +56%</strong> - Les leads VIP convertissent massivement</li>
+                    <li style="margin-bottom: 0.75rem;">👥 <strong>+1,474 nouveaux clients</strong> - L'acquisition VIP fonctionne</li>
+                    <li style="margin-bottom: 0.75rem;">🔥 <strong>5.47% de conversion</strong> - Trafic ultra-qualifié via VIP + Meta</li>
+                    <li style="margin-bottom: 0.75rem;">💰 <strong>Moins de sessions, plus de ventes</strong> - Efficacité maximale</li>
+                </ul>
+                <p style="margin-top: 1rem; padding: 1rem; background: #F0FFF4; border-radius: 8px; border-left: 4px solid var(--success);">
+                    <strong>Résultat:</strong> La stratégie 2025 sacrifie intentionnellement le panier moyen (-24%) et accepte plus de remises (+681%) 
+                    pour maximiser l'acquisition de nouveaux clients (+120%) et le volume de commandes (+66%). 
+                    Mission accomplie : +333K CAD de ventes brutes malgré 22% de trafic en moins.
+                </p>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Taux de Conversion par Année</h3>
+                <canvas id="conversionRateChart"></canvas>
+            </div>
+        </section>
+
+        <!-- TOP PERFORMERS -->
+        <section id="top-performers" class="section">
+            <div class="highlight-box">
+                <h2>🏆 Top Performers Novembre 2025</h2>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Top 3 Campagnes par ROAS</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Campagne</th>
+                            <th>ROAS</th>
+                            <th>Achats</th>
+                            <th>CA</th>
+                            <th>Budget</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: linear-gradient(90deg, #FFF5F5 0%, #FFF 100%);">
+                            <td><span style="font-size: 1.5rem;">🥇</span></td>
+                            <td><strong>Rappel VIP</strong></td>
+                            <td><span class="badge" style="background: #FED7D7; color: #C53030; font-size: 1.1rem;">29.16</span></td>
+                            <td>325</td>
+                            <td>32 492 CAD</td>
+                            <td>1 114 CAD</td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-size: 1.5rem;">🥈</span></td>
+                            <td><strong>BF QC EN</strong></td>
+                            <td><span class="badge badge-success" style="font-size: 1.1rem;">5.41</span></td>
+                            <td>652</td>
+                            <td>65 175 CAD</td>
+                            <td>12 055 CAD</td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-size: 1.5rem;">🥉</span></td>
+                            <td><strong>BF Catalogue</strong></td>
+                            <td><span class="badge badge-success" style="font-size: 1.1rem;">4.88</span></td>
+                            <td>390</td>
+                            <td>35 632 CAD</td>
+                            <td>7 297 CAD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Top 3 Campagnes par Volume d'Achats</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Campagne</th>
+                            <th>Achats</th>
+                            <th>CA</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span style="font-size: 1.5rem;">🥇</span></td>
+                            <td><strong>BF QC FR</strong></td>
+                            <td>893</td>
+                            <td>85 106 CAD</td>
+                            <td><span class="badge badge-success">4.45</span></td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-size: 1.5rem;">🥈</span></td>
+                            <td><strong>BF QC EN</strong></td>
+                            <td>652</td>
+                            <td>65 175 CAD</td>
+                            <td><span class="badge badge-success">5.41</span></td>
+                        </tr>
+                        <tr>
+                            <td><span style="font-size: 1.5rem;">🥉</span></td>
+                            <td><strong>BF Catalogue</strong></td>
+                            <td>390</td>
+                            <td>35 632 CAD</td>
+                            <td><span class="badge badge-success">4.88</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Meilleurs CPA</h3>
+                <canvas id="cpaChart"></canvas>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">🎯 Meilleur CPA</h3>
+                    <div style="text-align: center; padding: 1rem;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--success);">3.43 CAD</div>
+                        <div style="color: var(--secondary); margin-top: 0.5rem;">Rappel VIP</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">💰 Meilleur ROI</h3>
+                    <div style="text-align: center; padding: 1rem;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--success);">2,817%</div>
+                        <div style="color: var(--secondary); margin-top: 0.5rem;">Stratégie VIP Globale</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">📈 Meilleur Volume</h3>
+                    <div style="text-align: center; padding: 1rem;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent);">893</div>
+                        <div style="color: var(--secondary); margin-top: 0.5rem;">BF QC FR</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INSIGHTS -->
+        <section id="insights" class="section">
+            <div class="highlight-box">
+                <h2>💡 Insights Stratégiques</h2>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎯 La Stratégie VIP en 2 Temps : Un Succès Éclatant</h3>
+                <div class="grid" style="margin-top: 1rem;">
+                    <div class="card">
+                        <strong>Résultats VIP</strong>
+                        <ul style="list-style: none; padding: 0; margin-top: 0.5rem;">
+                            <li>• 2 594 leads à 2.27 CAD/lead</li>
+                            <li>• 325 achats (12.5% conversion)</li>
+                            <li>• ROAS moyen: 29.16</li>
+                            <li>• CA total: 32 492 CAD</li>
+                            <li>• ROI: 2,817% 🔥</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <strong>Facteurs de Succès</strong>
+                        <ol style="padding-left: 1.2rem; margin-top: 0.5rem;">
+                            <li>Collecte à froid crée anticipation</li>
+                            <li>Segmentation ultra-qualifiée</li>
+                            <li>Synergie Email + Meta parfaite</li>
+                            <li>Sentiment d'exclusivité maximal</li>
+                            <li>Conversion continue 2+ semaines</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Évolution CPA par Phase</h3>
+                <canvas id="cpaEvolutionChart"></canvas>
+            </div>
+
+            <div class="insight-card">
+                <h3>💰 Évolution du CPA : La Montée en Volume</h3>
+                <p style="margin-bottom: 1rem;"><strong>Progression stratégique :</strong></p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.75rem;">📊 <strong>Phase 1: 78.29 CAD</strong> - Collecte froide, investissement amont</li>
+                    <li style="margin-bottom: 0.75rem;">🎯 <strong>Phase 2: 13.53 CAD</strong> - Audience chaude VIP, efficacité maximale</li>
+                    <li style="margin-bottom: 0.75rem;">📈 <strong>Phase 3: 24.87 CAD</strong> - Acquisition massive, volume prioritaire</li>
+                </ul>
+                <p style="margin-top: 1rem; padding: 1rem; background: var(--light); border-radius: 8px;">
+                    <strong>Interprétation:</strong> Phase 2 affiche le meilleur CPA (VIP ultra-qualifiés). Phase 3 accepte un CPA plus élevé pour maximiser le volume tout en restant très profitable (ROAS 3.62).
+                </p>
+            </div>
+
+            <div class="insight-card">
+                <h3>🔥 Google Brand : L'Effet de Halo Exceptionnel</h3>
+                <p><strong>Corrélation directe avec activations Meta :</strong></p>
+                <div style="margin-top: 1rem;">
+                    <canvas id="googleHaloChart"></canvas>
+                </div>
+                <div style="margin-top: 1.5rem; padding: 1rem; background: var(--light); border-radius: 8px;">
+                    <strong>Impact:</strong> Chaque activation Meta génère +50-100% de conversions Google Brand le même jour. Le 25 novembre affiche un CTR record de 77.6%.
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Comparaison Marchés Anglophones</h3>
+                <canvas id="anglophonesChart"></canvas>
+            </div>
+        </section>
+
+        <!-- RECOMMANDATIONS -->
+        <section id="recommandations" class="section">
+            <div class="highlight-box">
+                <h2>🎯 Recommandations 2026</h2>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">Plan d'action pour répliquer et amplifier le succès</p>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎯 Stratégie VIP</h3>
+                <ul class="recommendation-list">
+                    <li><strong>Répéter la mécanique en 2 temps</strong> - ROI de 2,817% prouve l'excellence du modèle</li>
+                    <li><strong>Étendre à d'autres événements</strong> - Boxing Day, Fête des Mères, rentrée scolaire</li>
+                    <li><strong>Augmenter budget collecte</strong> - 2.27 CAD/lead = rentabilité excellente, viser 5,000+ leads</li>
+                    <li><strong>Tester activation à J+1</strong> - Au lieu de J+7 pour maximiser l'urgence et la fraîcheur</li>
+                </ul>
+            </div>
+
+            <div class="insight-card">
+                <h3>🌍 Marché Anglophone</h3>
+                <ul class="recommendation-list">
+                    <li><strong>Prioriser QC EN vs ROC</strong> - ROAS 5.41 vs 1.03, concentrer les ressources sur QC EN</li>
+                    <li><strong>Créer campagnes VIP EN QC</strong> - Segment ultra-performant mérite stratégie dédiée</li>
+                    <li><strong>Développer ROC progressivement</strong> - Marché émergent à long terme, investir prudemment</li>
+                    <li><strong>Budget différencié</strong> - Allouer 70% QC EN, 30% ROC pour tester scalabilité</li>
+                </ul>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎁 Mécaniques Promotionnelles</h3>
+                <ul class="recommendation-list">
+                    <li><strong>Répéter "Gagne ta commande"</strong> - ROAS 4.21 + engagement fort, excellent pour pics</li>
+                    <li><strong>Tester variantes 48h</strong> - Maximiser volume sans diluer urgence</li>
+                    <li><strong>Combiner concours + email</strong> - Amplifier la mécanique via multicanal</li>
+                    <li><strong>Planifier 2-3 par an</strong> - Moments clés seulement pour préserver exclusivité</li>
+                </ul>
+            </div>
+
+            <div class="insight-card">
+                <h3>🔍 Google Brand</h3>
+                <ul class="recommendation-list">
+                    <li><strong>Augmenter budget Phase 3</strong> - ROAS 23.73 démontre potentiel sous-exploité</li>
+                    <li><strong>Anticiper pics demande</strong> - +100% conversions jours activation, prévoir capacité</li>
+                    <li><strong>Tester Smart Bidding</strong> - Maximiser conversions pendant les pics avec automation</li>
+                    <li><strong>Monitoring temps réel</strong> - Ajuster budgets en live lors des événements majeurs</li>
+                </ul>
+            </div>
+
+            <div class="insight-card">
+                <h3>💰 Budget 2026</h3>
+                <ul class="recommendation-list">
+                    <li><strong>Budget BF +30%</strong> - ROAS 3.71 démontre capacité de scaling profitable</li>
+                    <li><strong>Allouer 5K collecte VIP</strong> - À 2.27 CAD/lead = 2,200+ leads potentiels pour maximiser activation</li>
+                    <li><strong>Réserver 15% Google Brand</strong> - Capturer efficacement l'effet de halo Meta</li>
+                    <li><strong>Budget urgence 10K</strong> - Pour opportunités en cours de campagne</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                <h2>🚀 Conclusion</h2>
+                <div style="font-size: 1.1rem; line-height: 1.8;">
+                    <p style="margin-bottom: 1rem;"><strong>Novembre 2025 : Le Meilleur Black Friday de l'Histoire</strong></p>
+                    
+                    <div class="highlight-grid" style="margin: 1.5rem 0;">
+                        <div class="highlight-stat">
+                            <div class="highlight-stat-value">449K CAD</div>
+                            <div>CA Total Combiné</div>
+                        </div>
+                        <div class="highlight-stat">
+                            <div class="highlight-stat-value">100K CAD</div>
+                            <div>Investissement Total</div>
+                        </div>
+                        <div class="highlight-stat">
+                            <div class="highlight-stat-value">4.47</div>
+                            <div>ROAS Blended</div>
+                        </div>
+                        <div class="highlight-stat">
+                            <div class="highlight-stat-value">5 336</div>
+                            <div>Conversions Totales</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1.5rem;"><strong>Innovations Gagnantes :</strong></p>
+                    <ol style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Stratégie VIP en 2 temps (ROI 2,817%)</li>
+                        <li>Segmentation QC EN vs ROC</li>
+                        <li>Mécanique "Gagne ta commande"</li>
+                        <li>Synergie Meta-Google parfaite</li>
+                    </ol>
+
+                    <p style="margin-top: 1.5rem; font-size: 1.2rem; font-weight: 600;">
+                        ✅ Le modèle est validé et prêt à scaler en 2026 ! 🚀
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p style="color: var(--secondary);">Rapport généré pour Luc Vincent Coiffure - Novembre 2025</p>
+        <p style="color: var(--secondary); margin-top: 0.5rem; font-size: 0.9rem;">Analyse complète Black Friday : Collecte VIP → Activation → Grand Public</p>
+    </footer>
+
+    <script>
+        // Navigation entre sections
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Configuration globale des graphiques
+        Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        Chart.defaults.color = '#2D3748';
+
+        // Graphique Comparaison des Phases
+        const phaseCtx = document.getElementById('phaseComparisonChart');
+        new Chart(phaseCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Phase 1: Collecte VIP', 'Phase 2: Activation VIP', 'Phase 3: Black Friday'],
+                datasets: [{
+                    label: 'Budget (CAD)',
+                    data: [5876, 7185, 68621],
+                    backgroundColor: 'rgba(49, 130, 206, 0.7)',
+                    borderColor: 'rgba(49, 130, 206, 1)',
+                    borderWidth: 2
+                }, {
+                    label: 'Achats',
+                    data: [21, 531, 2760],
+                    backgroundColor: 'rgba(56, 161, 105, 0.7)',
+                    borderColor: 'rgba(56, 161, 105, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique Investissement vs CA
+        const investCACtx = document.getElementById('investmentCAChart');
+        new Chart(investCACtx, {
+            type: 'bar',
+            data: {
+                labels: ['Meta Ads', 'Google Brand'],
+                datasets: [{
+                    label: 'Investissement (CAD)',
+                    data: [93159, 7546],
+                    backgroundColor: 'rgba(214, 158, 46, 0.7)',
+                    borderColor: 'rgba(214, 158, 46, 1)',
+                    borderWidth: 2
+                }, {
+                    label: 'CA (CAD)',
+                    data: [345730, 103585],
+                    backgroundColor: 'rgba(56, 161, 105, 0.7)',
+                    borderColor: 'rgba(56, 161, 105, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique Évolution ROAS
+        const roasCtx = document.getElementById('roasEvolutionChart');
+        new Chart(roasCtx, {
+            type: 'line',
+            data: {
+                labels: ['Phase 1', 'Phase 2', 'Phase 3'],
+                datasets: [{
+                    label: 'ROAS Québec',
+                    data: [1.27, 6.36, 3.62],
+                    borderColor: 'rgba(49, 130, 206, 1)',
+                    backgroundColor: 'rgba(49, 130, 206, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: 'ROAS ROC',
+                    data: [0, 1.13, 1.03],
+                    borderColor: 'rgba(214, 158, 46, 1)',
+                    backgroundColor: 'rgba(214, 158, 46, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique Phase 2
+        const phase2Ctx = document.getElementById('phase2Chart');
+        new Chart(phase2Ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Rappel VIP', 'Video Achat Pré-BF', 'Video ATC Pré-BF', 'Video Views BF'],
+                datasets: [{
+                    label: 'ROAS',
+                    data: [28.86, 4.57, 1.84, 0],
+                    backgroundColor: [
+                        'rgba(229, 62, 62, 0.7)',
+                        'rgba(56, 161, 105, 0.7)',
+                        'rgba(214, 158, 46, 0.7)',
+                        'rgba(160, 174, 192, 0.7)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique Comparaison Marchés
+        const marketCtx = document.getElementById('marketComparisonChart');
+        new Chart(marketCtx, {
+            type: 'bar',
+            data: {
+                labels: ['QC FR', 'QC EN', 'ROC'],
+                datasets: [{
+                    label: 'ROAS',
+                    data: [4.45, 5.41, 1.03],
+                    backgroundColor: [
+                        'rgba(49, 130, 206, 0.7)',
+                        'rgba(56, 161, 105, 0.7)',
+                        'rgba(214, 158, 46, 0.7)'
+                    ],
+                    borderWidth: 2
+                }, {
+                    label: 'CPA (CAD)',
+                    data: [21.41, 18.49, 93.23],
+                    backgroundColor: [
+                        'rgba(49, 130, 206, 0.4)',
+                        'rgba(56, 161, 105, 0.4)',
+                        'rgba(214, 158, 46, 0.4)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique Funnel Gagne ta Commande
+        const funnelCtx = document.getElementById('funnelChart');
+        new Chart(funnelCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Clics', 'Landing Page', 'Add to Cart', 'Checkout', 'Purchases'],
+                datasets: [{
+                    label: 'Volume',
+                    data: [3662, 791, 667, 294, 155],
+                    backgroundColor: [
+                        'rgba(49, 130, 206, 0.9)',
+                        'rgba(49, 130, 206, 0.7)',
+                        'rgba(49, 130, 206, 0.6)',
+                        'rgba(56, 161, 105, 0.7)',
+                        'rgba(56, 161, 105, 0.9)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique CPA
+        const cpaChartCtx = document.getElementById('cpaChart');
+        new Chart(cpaChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Rappel VIP', 'Google Phase 3', 'Google Phase 2', 'BF QC EN', 'BF Catalogue'],
+                datasets: [{
+                    label: 'CPA (CAD)',
+                    data: [3.43, 3.34, 9.09, 18.49, 18.71],
+                    backgroundColor: [
+                        'rgba(56, 161, 105, 0.9)',
+                        'rgba(56, 161, 105, 0.8)',
+                        'rgba(49, 130, 206, 0.7)',
+                        'rgba(49, 130, 206, 0.6)',
+                        'rgba(49, 130, 206, 0.5)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique Évolution CPA
+        const cpaEvolCtx = document.getElementById('cpaEvolutionChart');
+        new Chart(cpaEvolCtx, {
+            type: 'line',
+            data: {
+                labels: ['Phase 1: Collecte', 'Phase 2: Activation VIP', 'Phase 3: BF Grand Public'],
+                datasets: [{
+                    label: 'CPA (CAD)',
+                    data: [78.29, 13.53, 24.87],
+                    borderColor: 'rgba(49, 130, 206, 1)',
+                    backgroundColor: 'rgba(49, 130, 206, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 6,
+                    pointBackgroundColor: 'rgba(49, 130, 206, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique CTR Google
+        const googleCTRCtx = document.getElementById('googleCTRChart');
+        new Chart(googleCTRCtx, {
+            type: 'line',
+            data: {
+                labels: ['Phase 1', 'Phase 2', 'Phase 3'],
+                datasets: [{
+                    label: 'CTR Moyen (%)',
+                    data: [38.2, 38.8, 50.9],
+                    borderColor: 'rgba(229, 62, 62, 1)',
+                    backgroundColor: 'rgba(229, 62, 62, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 6,
+                    pointBackgroundColor: 'rgba(229, 62, 62, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 60 }
+                }
+            }
+        });
+
+        // Graphique Effet Halo Google
+        const googleHaloCtx = document.getElementById('googleHaloChart');
+        new Chart(googleHaloCtx, {
+            type: 'bar',
+            data: {
+                labels: ['7 nov (VIP)', '18 nov (Début BF)', '25 nov (Pic)', '28 nov (Gagne)'],
+                datasets: [{
+                    label: 'CTR (%)',
+                    data: [47.8, 53.5, 77.6, 61.7],
+                    backgroundColor: 'rgba(49, 130, 206, 0.7)',
+                    borderWidth: 2
+                }, {
+                    label: 'Conversions',
+                    data: [40, 137, 126, 91],
+                    backgroundColor: 'rgba(56, 161, 105, 0.7)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique Anglophones
+        const angloCtx = document.getElementById('anglophonesChart');
+        new Chart(angloCtx, {
+            type: 'radar',
+            data: {
+                labels: ['ROAS', 'Volume Achats', 'CA (x1000)', 'Efficacité CPA'],
+                datasets: [{
+                    label: 'QC EN (Anglophones Québec)',
+                    data: [5.41, 6.52, 65.2, 8],
+                    borderColor: 'rgba(56, 161, 105, 1)',
+                    backgroundColor: 'rgba(56, 161, 105, 0.2)',
+                    borderWidth: 2
+                }, {
+                    label: 'ROC (Rest of Canada)',
+                    data: [1.03, 0.82, 8.1, 2],
+                    borderColor: 'rgba(214, 158, 46, 1)',
+                    backgroundColor: 'rgba(214, 158, 46, 0.2)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 10
+                    }
+                }
+            }
+        });
+
+        // Graphique Shopify Comparison
+        const shopifyCtx = document.getElementById('shopifyComparisonChart');
+        new Chart(shopifyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Ventes Brutes (CAD)', 'Commandes', 'Nouveaux Clients'],
+                datasets: [{
+                    label: 'Novembre 2023',
+                    data: [405758, 3478, 1229],
+                    backgroundColor: 'rgba(160, 174, 192, 0.7)',
+                    borderColor: 'rgba(160, 174, 192, 1)',
+                    borderWidth: 2
+                }, {
+                    label: 'Novembre 2025',
+                    data: [739507, 5789, 2703],
+                    backgroundColor: 'rgba(56, 161, 105, 0.7)',
+                    borderColor: 'rgba(56, 161, 105, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Graphique Conversion Rate
+        const conversionCtx = document.getElementById('conversionRateChart');
+        new Chart(conversionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2023', '2025'],
+                datasets: [{
+                    label: 'Taux de Conversion (%)',
+                    data: [3.50, 5.47],
+                    backgroundColor: [
+                        'rgba(160, 174, 192, 0.7)',
+                        'rgba(56, 161, 105, 0.7)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        max: 6,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
